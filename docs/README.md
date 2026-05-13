@@ -156,5 +156,3 @@ Each extension includes test support. See individual extension READMEs or `POSTG
 - `COMPLETE-FILES-INDEX.md` - Complete file listing and purposes
 
 ---
-
-**This is a production-ready, properly architected Quarkus extensions ecosystem.**
