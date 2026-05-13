@@ -9,7 +9,7 @@
     <version>1.0.0</version>
     <packaging>pom</packaging>
     <name>Quarkus Transaction Processor Extension - Parent</name>
-    <description>Transaction domain model and persistence (SRP: domain model only)</description>
+    <description>Sample transaction entity, fact, and repository types (SRP: reusable persistence shape only)</description>
 
     <modules>
         <module>runtime</module>

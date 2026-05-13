@@ -34,13 +34,10 @@ public class TransactionConsumer extends KafkaMessageConsumer {
     }
 
     private void handleTransaction(String message) throws Exception {
-        // 1. Parse JSON to TransactionFact
         TransactionFact fact = transformer.fromJson(message, TransactionFact.class);
 
-        // 2. Execute Drools rules
         TransactionFact result = engine.execute(fact);
 
-        // 3. Create entity from fact
         TransactionEntity entity = new TransactionEntity();
         entity.transactionId = result.transactionId;
         entity.customerId = result.customerId;
@@ -48,18 +45,15 @@ public class TransactionConsumer extends KafkaMessageConsumer {
         entity.type = result.type;
         entity.description = result.description;
         entity.status = result.status;
-        entity.riskLevel = result.riskLevel;
-        entity.fraudDetected = result.fraudDetected;
-        entity.ruleApplied = result.ruleApplied;
+        entity.processingTier = result.processingTier;
+        entity.exceptionFlag = result.exceptionFlag;
+        entity.policyOutcome = result.policyOutcome;
 
-        // 4. Persist to database
         repo.persist(entity);
     }
 
     @Override
     protected void onProcessingError(String message, Exception e) {
-        // TODO: Send to dead letter queue
-        // TODO: Alert fraud detection team
         log.error("Error processing transaction: " + message, e);
     }
 }

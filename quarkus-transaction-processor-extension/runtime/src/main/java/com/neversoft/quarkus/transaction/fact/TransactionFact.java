@@ -10,14 +10,14 @@ public class TransactionFact {
     public TransactionEntity.TransactionType type;
     public String description;
     public TransactionEntity.TransactionStatus status;
-    public String riskLevel;
-    public boolean fraudDetected;
-    public String ruleApplied;
+    public String processingTier;
+    public boolean exceptionFlag;
+    public String policyOutcome;
 
     public TransactionFact() {
         this.status = TransactionEntity.TransactionStatus.PENDING;
-        this.riskLevel = "LOW";
-        this.fraudDetected = false;
+        this.processingTier = "LOW";
+        this.exceptionFlag = false;
     }
 
     public TransactionFact(String transactionId, String customerId, BigDecimal amount) {

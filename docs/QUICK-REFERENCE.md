@@ -54,7 +54,7 @@ template-service/pom.xml (reference application)
 - `COMPLETE-FILES-INDEX.md` - File inventory
 
 ### Configuration
-- `transaction-fraud-rules.drl` - Drools rules
+- `transaction-processing-rules.drl` - Drools rules
 
 ## Key Files by Purpose
 

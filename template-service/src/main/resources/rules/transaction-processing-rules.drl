@@ -1,0 +1,83 @@
+package com.neversoft.app.rules;
+
+import com.neversoft.quarkus.transaction.fact.TransactionFact;
+import java.math.BigDecimal;
+
+rule "Large amount — elevated tier"
+    when
+        $fact : TransactionFact(amount > 10000)
+    then
+        $fact.processingTier = "HIGH";
+        $fact.policyOutcome = "Large amount — elevated tier";
+end
+
+rule "Very large amount — critical tier"
+    when
+        $fact : TransactionFact(amount > 50000)
+    then
+        $fact.processingTier = "CRITICAL";
+        $fact.exceptionFlag = true;
+        $fact.policyOutcome = "Very large amount — critical tier";
+end
+
+rule "Description keyword — elevated tier"
+    when
+        $fact : TransactionFact(description matches "(?i).*(casino|gambling|forex|crypto).*")
+    then
+        $fact.processingTier = "HIGH";
+        $fact.policyOutcome = "Description keyword — elevated tier";
+end
+
+rule "Description keyword — critical tier"
+    when
+        $fact : TransactionFact(description matches "(?i).*(restricted-region-keyword).*")
+    then
+        $fact.processingTier = "CRITICAL";
+        $fact.exceptionFlag = true;
+        $fact.policyOutcome = "Description keyword — critical tier";
+end
+
+rule "Movement type — medium tier"
+    when
+        $fact : TransactionFact(type.toString() == "WITHDRAWAL" || type.toString() == "TRANSFER")
+    then
+        $fact.processingTier = "MEDIUM";
+        $fact.policyOutcome = "Movement type — medium tier";
+end
+
+rule "Amount band — medium tier"
+    when
+        $fact : TransactionFact(amount > 9000, amount < 10000)
+    then
+        $fact.processingTier = "MEDIUM";
+        $fact.policyOutcome = "Amount band — medium tier";
+end
+
+rule "Movement type — low tier"
+    when
+        $fact : TransactionFact(type.toString() == "DEBIT" || type.toString() == "CREDIT")
+    then
+        $fact.processingTier = "LOW";
+        $fact.policyOutcome = "Movement type — low tier";
+end
+
+rule "Approve low tier without exception"
+    when
+        $fact : TransactionFact(processingTier == "LOW", !exceptionFlag)
+    then
+        $fact.status = com.neversoft.quarkus.transaction.entity.TransactionEntity.TransactionStatus.APPROVED;
+end
+
+rule "Reject medium tier"
+    when
+        $fact : TransactionFact(processingTier == "MEDIUM")
+    then
+        $fact.status = com.neversoft.quarkus.transaction.entity.TransactionEntity.TransactionStatus.REJECTED;
+end
+
+rule "Escalate critical or flagged"
+    when
+        $fact : TransactionFact(processingTier == "CRITICAL" || exceptionFlag == true)
+    then
+        $fact.status = com.neversoft.quarkus.transaction.entity.TransactionEntity.TransactionStatus.ESCALATED;
+end

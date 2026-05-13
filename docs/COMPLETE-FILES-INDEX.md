@@ -72,7 +72,7 @@ All files for the complete refactored Quarkus extensions project.
 | `refactored-app-updated-pom.xml` | `template-service/pom.xml` | App POM (depends on 5 exts) |
 | `application-app.properties` | `template-service/src/main/resources/` | Quarkus configuration |
 | `refactored-TransactionConsumer.java` | `template-service/src/main/java/com/neversoft/app/` | Kafka consumer (~50 lines) |
-| `transaction-fraud-rules.drl` | `template-service/src/main/resources/rules/` | Drools rules |
+| `transaction-processing-rules.drl` | `template-service/src/main/resources/rules/` | Drools rules |
 | `docker-compose.yml` | `template-service/` | PostgreSQL + Kafka setup |
 
 ## Total Files Summary
@@ -101,7 +101,7 @@ All files for the complete refactored Quarkus extensions project.
 ## Key File Locations
 
 ### Configuration Files
-- Drools rules: `template-service/src/main/resources/rules/transaction-fraud-rules.drl`
+- Drools rules: `template-service/src/main/resources/rules/transaction-processing-rules.drl`
 - App config: `template-service/src/main/resources/application.properties`
 - Services: `docker-compose.yml`
 

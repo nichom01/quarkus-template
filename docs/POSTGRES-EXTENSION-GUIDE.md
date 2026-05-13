@@ -118,8 +118,8 @@ public class TransactionRepository extends Repository<TransactionEntity> {
         return list("customerId", customerId);
     }
     
-    public List<TransactionEntity> findFraudTransactions() {
-        return list("fraudDetected", true);
+    public List<TransactionEntity> findByExceptionFlag(boolean exceptionFlag) {
+        return list("exceptionFlag", exceptionFlag);
     }
 }
 ```
@@ -137,8 +137,8 @@ public class TransactionService {
         repository.persist(entity);  // Inherited from Repository<T>
     }
     
-    public List<TransactionEntity> getFraudTransactions() {
-        return repository.findFraudTransactions();
+    public List<TransactionEntity> listFlagged() {
+        return repository.findByExceptionFlag(true);
     }
 }
 ```
@@ -217,8 +217,8 @@ public class TransactionRepository extends Repository<TransactionEntity> {
     }
     
     // Complex query with parameters
-    public List<TransactionEntity> findHighValueFraudTransactions(BigDecimal threshold) {
-        return list("amount > ?1 and fraudDetected = true", threshold);
+    public List<TransactionEntity> findHighValueWithException(BigDecimal threshold) {
+        return list("amount > ?1 and exceptionFlag = true", threshold);
     }
     
     // Query with multiple parameters
@@ -231,7 +231,7 @@ public class TransactionRepository extends Repository<TransactionEntity> {
     }
     
     // Named queries
-    public long countFraudByStatus(TransactionEntity.TransactionStatus status) {
+    public long countByStatusExample(TransactionEntity.TransactionStatus status) {
         return count("status = ?1", status);
     }
 }
@@ -303,9 +303,9 @@ public class TransactionRepository extends Repository<TransactionEntity> {
         ).firstResultOptional();
     }
     
-    public long countFraudByCustomer(String customerId) {
+    public long countExceptionsByCustomer(String customerId) {
         return count(
-            "customerId = ?1 and fraudDetected = true",
+            "customerId = ?1 and exceptionFlag = true",
             customerId
         );
     }
@@ -397,8 +397,8 @@ public class DocumentEntity extends Entity {
 // ✓ Good: Domain repository with specific queries
 @ApplicationScoped
 public class TransactionRepository extends Repository<TransactionEntity> {
-    public List<TransactionEntity> findFraudTransactions() {
-        return list("fraudDetected", true);
+    public List<TransactionEntity> findByExceptionFlag(boolean exceptionFlag) {
+        return list("exceptionFlag", exceptionFlag);
     }
 }
 
@@ -474,13 +474,13 @@ public class TransactionRepositoryTest {
     
     @Test
     @Transactional
-    public void testFindFraud() {
+    public void testFindByExceptionFlag() {
         TransactionEntity entity = new TransactionEntity();
-        entity.fraudDetected = true;
+        entity.exceptionFlag = true;
         repository.persist(entity);
         
-        List<TransactionEntity> frauds = repository.findFraudTransactions();
-        assertEquals(1, frauds.size());
+        List<TransactionEntity> flagged = repository.findByExceptionFlag(true);
+        assertEquals(1, flagged.size());
     }
 }
 ```

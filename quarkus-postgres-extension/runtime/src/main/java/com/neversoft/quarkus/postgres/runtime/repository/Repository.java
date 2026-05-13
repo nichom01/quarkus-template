@@ -17,8 +17,8 @@ import jakarta.persistence.EntityManager;
  *           return list("customerId", customerId);
  *       }
  *
- *       public List<TransactionEntity> findFraudTransactions() {
- *           return list("fraudDetected", true);
+ *       public List<TransactionEntity> findByExceptionFlag(boolean exceptionFlag) {
+ *           return list("exceptionFlag", exceptionFlag);
  *       }
  *   }
  *

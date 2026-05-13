@@ -78,8 +78,8 @@ public class TransactionEntity extends Entity { ... }
 
 @ApplicationScoped
 public class TransactionRepository extends Repository<TransactionEntity> {
-    public List<TransactionEntity> findFraudTransactions() {
-        return list("fraudDetected", true);
+    public List<TransactionEntity> findByExceptionFlag(boolean exceptionFlag) {
+        return list("exceptionFlag", exceptionFlag);
     }
 }
 ```
@@ -159,7 +159,7 @@ Each extension declares only what it needs:
 
 ```properties
 # Extension 1: Drools
-quarkus.drools.rule-files=rules/transaction-fraud-rules.drl
+quarkus.drools.rule-files=rules/transaction-processing-rules.drl
 
 # Extension 2: Kafka
 mp.messaging.incoming.transactions.connector=smallrye-kafka
@@ -180,7 +180,7 @@ quarkus.postgres.max-pool-size=20
 
 | Extension | Transaction System | Order Processing | User Management | Inventory | Payment Processing | Report Generation |
 |-----------|-------------------|------------------|-----------------|-----------|-------------------|-------------------|
-| 1: Drools | ✓ Fraud rules     | ✓ Status rules   | ✓ Validation    | ✓ Pricing | ✓ Compliance      | ✓ Aggregation     |
+| 1: Drools | ✓ Policy rules    | ✓ Status rules   | ✓ Validation    | ✓ Pricing | ✓ Compliance      | ✓ Aggregation     |
 | 2: Kafka  | ✓ Events          | ✓ Events         | ✓ Events        | ✓ Updates | ✓ Events          | ✓ Streaming       |
 | 3: JSON   | ✓ API messages    | ✓ API messages   | ✓ API messages  | ✓ Files   | ✓ API messages    | ✓ JSON export     |
 | 4: Postgres | ✓ Persistence   | ✓ Persistence    | ✓ Persistence   | ✓ Persistence | ✓ Persistence   | ✓ Data storage    |
@@ -256,7 +256,7 @@ quarkus-extensions-project/
     │   │   └── consumer/TransactionConsumer.java
     │   └── resources/
     │       ├── application.properties
-    │       └── rules/transaction-fraud-rules.drl
+    │       └── rules/transaction-processing-rules.drl
     ├── docker-compose.yml
     └── pom.xml
 ```

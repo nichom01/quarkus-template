@@ -47,7 +47,7 @@ TRANSACTION PROCESSOR EXTENSION (4 POMs + 3 Java)
 REFERENCE APPLICATION (1 POM + 1 Java + 1 Rules)
   pom.xml
   TransactionConsumer.java
-  transaction-fraud-rules.drl
+  transaction-processing-rules.drl
 
 SUMMARY
 =======

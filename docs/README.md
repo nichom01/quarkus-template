@@ -47,7 +47,7 @@ A production-ready ecosystem of five independently reusable Quarkus extensions f
 **template-service** - Demonstrates composition
 - `template-service/pom.xml` - Depends on all 5 extensions
 - `template-service/src/main/java/com/neversoft/app/consumer/TransactionConsumer.java` - Application code (~50 lines)
-- `template-service/src/main/resources/rules/transaction-fraud-rules.drl` - Drools rules
+- `template-service/src/main/resources/rules/transaction-processing-rules.drl` - Drools rules
 
 ## 📚 Documentation
 

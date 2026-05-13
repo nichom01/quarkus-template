@@ -9,9 +9,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * Transaction entity extending the generic PostgreSQL Entity base class.
- *
- * Now purely domain-specific, inherits persistence from Postgres extension.
+ * Sample transaction aggregate for the transaction-processor extension.
+ * Field names are intentionally generic so the extension stays reusable.
  */
 @Entity
 @Table(name = "transactions")
@@ -44,13 +43,13 @@ public class TransactionEntity extends com.neversoft.quarkus.postgres.runtime.en
     public LocalDateTime processedAt;
 
     @Column(length = 500)
-    public String ruleApplied;
+    public String policyOutcome;
 
     @Column(nullable = false)
-    public String riskLevel;
+    public String processingTier;
 
     @Column(nullable = false)
-    public Boolean fraudDetected;
+    public Boolean exceptionFlag;
 
     @Column(length = 100)
     public String merchantCategory;
@@ -61,8 +60,8 @@ public class TransactionEntity extends com.neversoft.quarkus.postgres.runtime.en
     public TransactionEntity() {
         this.createdAt = LocalDateTime.now();
         this.status = TransactionStatus.PENDING;
-        this.fraudDetected = false;
-        this.riskLevel = "LOW";
+        this.exceptionFlag = false;
+        this.processingTier = "LOW";
     }
 
     public enum TransactionType {
@@ -70,7 +69,7 @@ public class TransactionEntity extends com.neversoft.quarkus.postgres.runtime.en
     }
 
     public enum TransactionStatus {
-        PENDING, APPROVED, REJECTED, FRAUD_DETECTED
+        PENDING, APPROVED, REJECTED, ESCALATED
     }
 
     @Override
@@ -82,8 +81,8 @@ public class TransactionEntity extends com.neversoft.quarkus.postgres.runtime.en
                 ", amount=" + amount +
                 ", type=" + type +
                 ", status=" + status +
-                ", fraudDetected=" + fraudDetected +
-                ", riskLevel='" + riskLevel + '\'' +
+                ", exceptionFlag=" + exceptionFlag +
+                ", processingTier='" + processingTier + '\'' +
                 '}';
     }
 }
