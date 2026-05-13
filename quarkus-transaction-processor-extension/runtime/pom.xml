@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.neversoft.quarkus</groupId>
+        <artifactId>quarkus-transaction-processor-extension</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>quarkus-transaction-processor-extension-runtime</artifactId>
+    <name>Quarkus Transaction Processor Extension - Runtime</name>
+    <description>Transaction domain model and persistence (SRP: domain model only)</description>
+
+    <dependencies>
+        <!-- Quarkus ORM -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-hibernate-orm-panache</artifactId>
+        </dependency>
+
+        <!-- PostgreSQL driver -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jdbc-postgresql</artifactId>
+        </dependency>
+
+        <!-- Postgres extension (Entity / Repository base types) -->
+        <dependency>
+            <groupId>com.neversoft.quarkus</groupId>
+            <artifactId>quarkus-postgres-extension-runtime</artifactId>
+        </dependency>
+
+        <!-- Testing -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

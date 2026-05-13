@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.neversoft</groupId>
+    <artifactId>fraud-detection-service</artifactId>
+    <version>1.0.0</version>
+    <name>Fraud Detection Service - Refactored with Postgres Extension</name>
+    <description>Reference application composing five focused extensions</description>
+
+    <properties>
+        <compiler-plugin.version>3.11.0</compiler-plugin.version>
+        <maven.compiler.release>17</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
+        <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
+        <quarkus.platform.version>3.10.0</quarkus.platform.version>
+
+        <extension.version>1.0.0</extension.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>${quarkus.platform.group-id}</groupId>
+                <artifactId>${quarkus.platform.artifact-id}</artifactId>
+                <version>${quarkus.platform.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- Extension 1: Drools (rules engine) — depend on runtime JAR, not parent POM -->
+        <dependency>
+            <groupId>com.neversoft.quarkus</groupId>
+            <artifactId>quarkus-drools-extension-runtime</artifactId>
+            <version>${extension.version}</version>
+        </dependency>
+
+        <!-- Extension 2: Kafka Reactive (messaging) -->
+        <dependency>
+            <groupId>com.neversoft.quarkus</groupId>
+            <artifactId>quarkus-kafka-reactive-extension-runtime</artifactId>
+            <version>${extension.version}</version>
+        </dependency>
+
+        <!-- Extension 3: JSON Transform (mapping) -->
+        <dependency>
+            <groupId>com.neversoft.quarkus</groupId>
+            <artifactId>quarkus-json-transform-extension-runtime</artifactId>
+            <version>${extension.version}</version>
+        </dependency>
+
+        <!-- Extension 4: PostgreSQL (database persistence) -->
+        <dependency>
+            <groupId>com.neversoft.quarkus</groupId>
+            <artifactId>quarkus-postgres-extension-runtime</artifactId>
+            <version>${extension.version}</version>
+        </dependency>
+
+        <!-- Extension 5: Transaction Processor (domain model, depends on Postgres) -->
+        <dependency>
+            <groupId>com.neversoft.quarkus</groupId>
+            <artifactId>quarkus-transaction-processor-extension-runtime</artifactId>
+            <version>${extension.version}</version>
+        </dependency>
+
+        <!-- REST API (optional) -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy-reactive</artifactId>
+        </dependency>
+
+        <!-- Testing -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${compiler-plugin.version}</version>
+                <configuration>
+                    <release>${maven.compiler.release}</release>
+                    <compilerArgs>-parameters</compilerArgs>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>io.quarkus.platform</groupId>
+                <artifactId>quarkus-maven-plugin</artifactId>
+                <version>${quarkus.platform.version}</version>
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
