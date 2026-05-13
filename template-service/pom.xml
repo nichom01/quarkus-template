@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.neversoft</groupId>
-    <artifactId>fraud-detection-service</artifactId>
+    <artifactId>template-service</artifactId>
     <version>1.0.0</version>
-    <name>Fraud Detection Service - Refactored with Postgres Extension</name>
+    <name>Template Service</name>
     <description>Reference application composing five focused extensions</description>
 
     <properties>

@@ -44,10 +44,10 @@ A production-ready ecosystem of five independently reusable Quarkus extensions f
 
 ## 🎯 Reference Application
 
-**fraud-detection-service** - Demonstrates composition
-- `fraud-detection-service/pom.xml` - Depends on all 5 extensions
-- `fraud-detection-service/src/main/java/com/neversoft/app/consumer/TransactionConsumer.java` - Application code (~50 lines)
-- `fraud-detection-service/src/main/resources/rules/transaction-fraud-rules.drl` - Drools rules
+**template-service** - Demonstrates composition
+- `template-service/pom.xml` - Depends on all 5 extensions
+- `template-service/src/main/java/com/neversoft/app/consumer/TransactionConsumer.java` - Application code (~50 lines)
+- `template-service/src/main/resources/rules/transaction-fraud-rules.drl` - Drools rules
 
 ## 📚 Documentation
 
@@ -95,7 +95,7 @@ mvn clean install -f quarkus-postgres-extension/pom.xml
 mvn clean install -f quarkus-transaction-processor-extension/pom.xml
 
 # 6: reference application (depends on all five extensions)
-mvn clean install -f fraud-detection-service/pom.xml
+mvn clean install -f template-service/pom.xml
 ```
 
 ## 📋 File Inventory

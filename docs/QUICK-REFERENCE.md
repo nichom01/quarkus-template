@@ -23,7 +23,7 @@ quarkus-kafka-reactive-extension-*.xml
 quarkus-json-transform-extension-*.xml
 quarkus-postgres-extension-*.xml
 quarkus-transaction-processor-extension-*.xml
-pom.xml (reference application)
+template-service/pom.xml (reference application)
 ```
 
 ### Java Classes

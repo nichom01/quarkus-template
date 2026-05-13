@@ -87,7 +87,7 @@ public class TransactionRepository extends Repository<TransactionEntity> {
 ## Dependency Graph
 
 ```
-fraud-detection-service (your app, ~50 lines)
+template-service (your app, ~50 lines)
 │
 ├── Extension 1: Drools ────────────────────────────────────────┐
 ├── Extension 2: Kafka Reactive ─────────────────────────────┐  │
@@ -207,7 +207,7 @@ mvn clean install -f quarkus-postgres-extension/pom.xml
 mvn clean install -f quarkus-transaction-processor-extension/pom.xml
 
 # 6. Build Application (depends on all 5)
-mvn clean install -f fraud-detection-service/pom.xml
+mvn clean install -f template-service/pom.xml
 ```
 
 Or all at once if using parent POM.
@@ -250,7 +250,7 @@ quarkus-extensions-project/
 │   │   └── repository/TransactionRepository.java
 │   └── deployment/ (minimal)
 │
-└── fraud-detection-service/
+└── template-service/
     ├── src/main/
     │   ├── java/com/neversoft/app/
     │   │   └── consumer/TransactionConsumer.java

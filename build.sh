@@ -32,7 +32,7 @@ build_module "quarkus-postgres-extension/pom.xml" "$@"
 build_module "quarkus-transaction-processor-extension/pom.xml" "$@"
 
 # Reference application depends on all five extensions
-build_module "fraud-detection-service/pom.xml" "$@"
+build_module "template-service/pom.xml" "$@"
 
 echo "================================================================================"
 echo "Build finished successfully."
